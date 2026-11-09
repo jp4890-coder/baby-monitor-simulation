@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Little Nest · Baby Monitor</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f1eb;color:#243d39;font:15px/1.5 system-ui,-apple-system,sans-serif}button,input,select{font:inherit}button,select{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #cf804d;outline-offset:4px}.app{max-width:1050px;margin:auto;padding:32px 28px}header{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}.brand{font-family:Georgia,serif;font-size:28px}.brand span{color:#77887d;font-size:25px}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:700;color:#6d8177}h1{font-family:Georgia,serif;font-weight:400;font-size:36px;margin:5px 0}h2{font-size:17px;margin:0}p{margin:6px 0}.subtitle{color:#6a7972}.layout{display:grid;grid-template-columns:1.1fr 1fr;gap:24px}.card{background:#fffefa;border:1px solid #e0e4db;border-radius:22px;overflow:hidden}.camera{height:300px;position:relative;background:#243f3a;display:grid;place-items:center;color:#e2ebe3;overflow:hidden}.camera.off .room{opacity:.18}.room{width:290px;height:210px;position:relative;transition:opacity .3s}.moon{position:absolute;right:38px;top:8px;font-size:36px;color:#eddfb8}.crib{position:absolute;bottom:25px;left:20px;right:20px;height:112px;border:9px solid #a3b3a0;border-radius:12px;background:repeating-linear-gradient(90deg,transparent 0 28px,#a3b3a0 28px 35px)}.mattress{position:absolute;bottom:58px;left:39px;width:210px;height:60px;background:#d8d7bb;border-radius:50%}.blanket{position:absolute;bottom:66px;left:105px;width:117px;height:45px;background:#91a995;border-radius:40px}.head{position:absolute;bottom:76px;left:71px;width:43px;height:39px;background:#e6c3a2;border-radius:50%;transform:rotate(-10deg)}.head:after{content:'ᴗ';position:absolute;left:14px;top:4px;color:#745c4c}.camera-label{position:absolute;top:20px;left:20px;border:1px solid #789087;border-radius:20px;padding:5px 10px;font-size:11px;letter-spacing:1px}.camera-caption{position:absolute;bottom:14px;font-size:12px;color:#c0cfc3}.power{border:0;background:#294d40;color:white;padding:11px 18px;border-radius:30px;font-weight:600}.camera-footer{padding:21px 24px;display:flex;justify-content:space-between;align-items:center}.badge{font-size:12px;background:#edf1e8;padding:5px 10px;border-radius:20px}.controls{padding:24px}.label-row{display:flex;justify-content:space-between;align-items:center;margin-top:22px;margin-bottom:8px}label{font-weight:600}.value{font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}.value small{font-size:13px;color:#718177;font-weight:400}input[type=range]{width:100%;accent-color:#365e49;cursor:pointer}.scale{display:flex;justify-content:space-between;color:#7b887f;font-size:11px}select{border:1px solid #d6ded1;background:#fffefa;border-radius:9px;padding:8px;color:#29483a}.hint{font-size:12px;color:#738176}.meter{position:relative;height:12px;background:#e9ede4;border-radius:10px;margin:24px 0 27px}.fill{height:100%;width:0;background:#719272;border-radius:10px;transition:width .15s}.marker{position:absolute;top:-5px;height:22px;border-left:2px solid #bf7546;left:50%}.marker span{position:absolute;white-space:nowrap;top:22px;transform:translateX(-50%);font-size:10px;color:#9c6038}.status{margin-top:24px;background:#e9eee3;border:1px solid #dce5d3;border-radius:16px;padding:20px 24px}.status[data-state=waiting]{background:#fff1df;border-color:#edd9b9}.status[data-state=off]{background:#e9eae5;border-color:#dbded5}.status-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.status h2{font-size:19px}.status p{font-size:14px;color:#536950;margin-top:8px}.countdown{font-size:24px;font-variant-numeric:tabular-nums;color:#926337}.progress{height:4px;margin-top:13px;background:#e6ddce;border-radius:4px;overflow:hidden}.progress div{height:100%;background:#b4834e;width:0}.activity{padding:22px 24px;margin-top:20px}.activity-header{display:flex;justify-content:space-between;margin-bottom:12px}.empty{font-size:13px;color:#7b867b;padding:12px 0}ul{list-style:none;padding:0;margin:0}li{padding:12px 0;border-top:1px solid #e8eadf;font-size:13px;display:flex;justify-content:space-between;gap:10px}li time{color:#7a867b;white-space:nowrap;font-size:11px}.guide{margin:24px 0 16px;padding:16px 20px;background:#e7ebdf;border-radius:12px;font-size:13px}.guide strong{color:#35533b}footer{font-size:11px;color:#7a8378;margin-top:20px;max-width:780px}@media(max-width:720px){.app{padding:22px 16px}.layout{grid-template-columns:1fr;gap:16px}h1{font-size:30px}.camera{height:230px}.brand{font-size:24px}.controls{padding:20px}.guide{margin-top:18px}}
+
+/* The illustrated baby's expression follows the simulated sound level. */
+.crib{background:none;border-top-width:5px}.head,.blanket{z-index:1}.head{width:54px;height:49px;bottom:83px}.head:before{content:'⌒ ⌒';position:absolute;top:7px;left:9px;font-size:13px;color:#745c4c}.head:after{content:'';left:22px;top:30px;width:10px;height:3px;background:#946653;border-radius:50%}.tears{display:none;position:absolute;left:8px;top:25px;color:#b5dfe6;font-size:19px}.sound-waves{position:absolute;left:143px;top:58px;font-size:24px;letter-spacing:5px;color:#ead4aa;opacity:0}.camera[data-sound=fussing] .head{animation:fuss var(--fuss-speed,1s) ease-in-out infinite;background:rgb(234, calc(195 - var(--intensity) * 20), 160)}
+.camera[data-sound=fussing] .head:before{content:'> <';top:6px;left:12px;font-weight:700}
+.camera[data-sound=fussing] .head:after{width:calc(8px + var(--intensity) * 12px);height:calc(6px + var(--intensity) * 16px);left:19px;top:26px;background:#874f4d;border-radius:50%}
+.camera[data-sound=fussing] .tears{display:block;opacity:var(--intensity)}
+.camera[data-sound=fussing] .sound-waves{opacity:calc(.2 + var(--intensity) * .8);font-size:calc(18px + var(--intensity) * 16px)}
+.camera[data-sound=fussing] .blanket{animation:fuss var(--fuss-speed,1s) infinite}
+.camera.off .head,.camera.off .blanket,.camera.off .tears,.camera.off .sound-waves{animation:none}.camera.off .sound-waves{opacity:0}
+@keyframes fuss{0%,100%{transform:translateY(0) rotate(-10deg)}50%{transform:translateY(-4px) rotate(3deg)}}
+@keyframes call{0%,100%{opacity:.3}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.head,.blanket,.tears,.sound-waves{animation:none!important}}
+
+.sound-waves{display:flex;align-items:center;gap:5px;height:40px}
+.sound-waves i{display:block;width:8px;height:14px;border:2px solid #ead4aa;border-left:0;border-top-color:transparent;border-bottom-color:transparent;border-radius:0 50% 50% 0}
+.sound-waves i:nth-child(2){height:25px;width:10px}
+.sound-waves i:nth-child(3){height:36px;width:12px}
+.status[data-state=detecting]{background:#e5edf1;border-color:#cbdce3}.status[data-state=detecting] .progress div{background:#5d8799}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="brand"><span>◡</span> little nest</div><span class="eyebrow">Interactive demo</span></header>
+<div class="eyebrow">A little peace of mind</div><h1>Your nursery, at a glance.</h1><p class="subtitle">Explore when a sound becomes an alert.</p>
+<div class="guide"><strong>Try it:</strong> Turn on the monitor → raise the room sound → watch the baby react and an alert arrive. Choose how long to pause repeat alerts.</div>
+<div class="layout">
+<section>
+<div class="card">
+<div class="camera off" id="camera" data-sound="quiet"><span class="camera-label" id="cameraLabel">● MONITOR OFF</span><div class="room" aria-hidden="true"><div class="moon">☾</div><div class="mattress"></div><div class="blanket"></div><div class="head"><span class="tears">؛</span></div><div class="sound-waves"><i></i><i></i><i></i></div><div class="crib"></div></div><span class="camera-caption" id="babyCaption">Monitor off · illustrated nursery</span></div>
+<div class="camera-footer"><div><h2>Baby’s room</h2><p class="hint">Sound monitoring</p></div><button class="power" id="powerButton" aria-pressed="false">⏻ Turn on</button></div>
+</div>
+<div class="card controls" style="margin-top:20px"><div class="eyebrow">Room input</div><h2 style="margin-top:6px">What can the monitor hear?</h2><p class="hint">0 is quiet. Raising the slider gradually increases the simulated fussing and sound.</p>
+<div class="label-row"><label for="soundLevel">Room sound</label><span class="value"><span id="soundValue">0</span><small> / 100</small></span></div>
+<input id="soundLevel" type="range" min="0" max="100" value="0"><div class="scale"><span>Quiet</span><span>Loud</span></div>
+<p class="hint" id="audioHint" style="margin-top:12px">Turn on the monitor, then move the slider to hear sound and change the baby’s expression. Turning it off or setting sound to 0 stops audio. Audio and crying are simulated.</p>
+</div></section>
+<section>
+<div class="card controls"><div class="eyebrow">Monitor response</div><h2 style="margin-top:6px">When should it alert you?</h2><div class="label-row" style="margin-top:30px"><label for="sensitivity">Alert sensitivity</label><select id="sensitivity"><option value="80">Low</option><option value="50" selected>Medium</option><option value="25">High</option></select></div>
+<p class="hint">Sensitivity changes the alert threshold, not the baby’s behavior or sound. High sensitivity alerts at 25, medium at 50, and low at 80.</p>
+<div class="label-row"><label for="waitingPeriod">Time between alerts</label><select id="waitingPeriod"><option value="10000" selected>10 seconds · demo</option><option value="60000">1 minute</option><option value="300000">5 minutes</option></select></div>
+<p class="hint">Sound must stay at or above the threshold for 2 seconds before an alert. This setting pauses repeat notifications, not the room audio. Changes apply from the last alert.</p>
+<div class="meter" aria-hidden="true"><div class="fill" id="soundFill"></div><div class="marker" id="marker"><span id="markerLabel">Alert at 50</span></div></div>
+<p id="comparison" style="font-size:14px;margin-top:37px">Sound 0 is below the alert threshold of 50.</p>
+<div style="border-top:1px solid #e5e8dd;margin-top:24px;padding-top:20px"><h2>Why wait between alerts?</h2><p class="hint" style="font-size:13px;margin-top:9px">Every alert starts your selected waiting period, regardless of sound level. When the pause ends, sound must pass a new 2-second check before another alert.</p><p class="hint" style="margin-top:12px">Try lowering the slider to 0 during the pause. Once it ends, the monitor returns to listening.</p></div>
+</div>
+<div class="status" id="status" data-state="off"><div class="status-top"><h2 id="stateTitle">Monitor is off</h2><span class="countdown" id="countdown"></span></div><p id="explanation">Turn it on to start checking the simulated room sound.</p><div class="progress" id="progress" hidden><div id="progressFill"></div></div></div>
+<div class="card activity"><div class="activity-header"><h2>Notifications</h2><span class="badge" id="alertCount">0 sent</span></div><p class="empty" id="empty">Your alerts will appear here.</p><ul id="alerts" aria-live="polite"></ul></div>
+</section>
+</div>
+<footer>Classroom simulation. Sound levels and thresholds are illustrative. The nursery is a drawing, not a live feed. This model compares volume only; it does not identify crying or assess a baby’s well-being.</footer>
+</div>
+<script>
+// State variables: power, sound, threshold, last alert time, and alert count.
+let isOn = false;
+let soundLevel = 0;
+let threshold = 50;
+let state = 'off';
+let lastAlertTime = null;
+let soundAboveSince = null; // Start of an uninterrupted qualifying sound.
+const detectionPeriod = 2000; // Confirm sound for two seconds before alerting.
+let alertCount = 0;
+let waitingPeriod = 10000; // User-selectable pause in milliseconds.
+const get = id => document.getElementById(id);
+
+// Web Audio creates sound locally. No audio files or microphone are needed.
+let audioContext = null;
+let audioEnabled = false;
+const playbackVolume = 0.3; // Modest playback volume; use device volume to adjust.
+let masterGain, roomGain, fussGain;
+
+function createAudio() {
+  audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  masterGain = audioContext.createGain();
+  masterGain.gain.value = 0;
+  masterGain.connect(audioContext.destination);
+
+  // Filtered noise gives the soft setting a gentle room/fan sound.
+  const buffer = audioContext.createBuffer(1, audioContext.sampleRate * 2, audioContext.sampleRate);
+  const samples = buffer.getChannelData(0);
+  for (let i = 0; i < samples.length; i++) samples[i] = Math.random() * 2 - 1;
+  const noise = audioContext.createBufferSource();
+  noise.buffer = buffer;
+  noise.loop = true;
+  const filter = audioContext.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.value = 750;
+  roomGain = audioContext.createGain();
+  noise.connect(filter).connect(roomGain).connect(masterGain);
+  noise.start();
+
+  // A wavering tone with a rhythmic envelope suggests fussing.
+  const voice = audioContext.createOscillator();
+  voice.type = 'triangle';
+  voice.frequency.value = 460;
+  const pitchWave = audioContext.createOscillator();
+  pitchWave.frequency.value = 3.5;
+  const pitchDepth = audioContext.createGain();
+  pitchDepth.gain.value = 65;
+  pitchWave.connect(pitchDepth).connect(voice.frequency);
+  const envelope = audioContext.createGain();
+  envelope.gain.value = 0.5;
+  const rhythm = audioContext.createOscillator();
+  rhythm.frequency.value = 0.85;
+  const rhythmDepth = audioContext.createGain();
+  rhythmDepth.gain.value = 0.45;
+  rhythm.connect(rhythmDepth).connect(envelope.gain);
+  fussGain = audioContext.createGain();
+  voice.connect(envelope).connect(fussGain).connect(masterGain);
+  voice.start(); pitchWave.start(); rhythm.start();
+}
+
+function updateAudio() {
+  if (!audioContext) return;
+  const time = audioContext.currentTime;
+  // Monitor power controls audio playback as well as notifications.
+  masterGain.gain.setTargetAtTime(audioEnabled && isOn ? playbackVolume * 0.45 : 0, time, 0.08);
+  roomGain.gain.setTargetAtTime(soundLevel / 100 * 0.6, time, 0.08);
+  fussGain.gain.setTargetAtTime((soundLevel / 100 * 0.45), time, 0.08);
+}
+
+// A sound button or slider gesture also starts browser audio.
+async function playRoomSound() {
+  if (soundLevel === 0) {
+    audioEnabled = false;
+    updateAudio();
+    return;
+  }
+  try {
+    if (!audioContext) createAudio();
+    audioEnabled = true;
+    updateAudio();
+    await audioContext.resume();
+  } catch (error) {
+    get('audioHint').textContent = 'Audio is unavailable in this browser; the sound level and alerts still work.';
+  }
+}
+
+function sendAlert(now) {
+  alertCount++;
+  lastAlertTime = now;
+  get('empty').hidden = true;
+  const item = document.createElement('li');
+  const message = document.createElement('span');
+  message.textContent = 'Sound detected · ' + soundLevel + ' / 100';
+  const time = document.createElement('time');
+  time.textContent = new Date(now).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  item.append(message, time);
+  get('alerts').prepend(item);
+  // Keep the six most recent alerts visible.
+  if (get('alerts').children.length > 6) get('alerts').lastElementChild.remove();
+  get('alertCount').textContent = alertCount + ' sent';
+}
+
+// Control flow determines whether to ignore sound, wait, alert, or listen.
+function formatTime(milliseconds) {
+  const seconds = Math.ceil(milliseconds / 1000);
+  return seconds >= 60 ? Math.floor(seconds / 60) + ':' + String(seconds % 60).padStart(2, '0') : seconds + 's';
+}
+function updateBaby() {
+  // Sound strength changes gradually; sensitivity only controls alerts.
+  const intensity = soundLevel / 100;
+  get('camera').dataset.sound = soundLevel === 0 ? 'quiet' : 'fussing';
+  get('camera').style.setProperty('--intensity', intensity);
+  get('camera').style.setProperty('--fuss-speed', (1.6 - intensity * 1.25) + 's');
+  get('babyCaption').textContent = !isOn ? 'Monitor off · illustrated nursery' :
+    soundLevel === 0 ? 'Quiet · baby resting' : 'Simulated fussing · sound level ' + soundLevel + ' / 100';
+}
+function checkSound() {
+  updateBaby();
+  const now = Date.now();
+  let timeLeft = lastAlertTime === null ? 0 : Math.max(0, waitingPeriod - (now - lastAlertTime));
+  let detectionLeft = 0;
+  if (!isOn) {
+    soundAboveSince = null;
+    state = 'off';
+    get('stateTitle').textContent = 'Monitor is off';
+    get('explanation').textContent = 'Turn it on to start checking the simulated room sound.';
+  } else if (timeLeft > 0) {
+    soundAboveSince = null;
+    state = 'waiting';
+    get('stateTitle').textContent = 'Notifications paused';
+    get('explanation').textContent = soundLevel >= threshold
+      ? 'Sound is still above the threshold. When this pause ends, a new 2-second sound check will begin.'
+      : 'Sound is below the threshold now. If it stays quiet, no new alert will be sent.';
+  } else if (soundLevel >= threshold) {
+    if (soundAboveSince === null) soundAboveSince = now;
+    detectionLeft = Math.max(0, detectionPeriod - (now - soundAboveSince));
+    if (detectionLeft > 0) {
+      state = 'detecting';
+      get('stateTitle').textContent = 'Sound detected · checking…';
+      get('explanation').textContent = 'Sound must stay at or above ' + threshold + ' for 2 seconds. If it drops below, this check starts over.';
+    } else {
+      sendAlert(now);
+      soundAboveSince = null;
+      state = 'waiting';
+      timeLeft = waitingPeriod;
+      get('stateTitle').textContent = 'Alert sent · starting a pause';
+      get('explanation').textContent = 'Sound stayed above the threshold for 2 seconds. Repeat alerts pause for ' + get('waitingPeriod').selectedOptions[0].textContent.replace(' · demo', '') + '.';
+    }
+  } else {
+    soundAboveSince = null;
+    state = 'monitoring';
+    get('stateTitle').textContent = 'Listening to the room';
+    get('explanation').textContent = 'Sound is below ' + threshold + ', so no alert is needed. Raise the sound or increase sensitivity to try an alert.';
+  }
+  get('status').dataset.state = state;
+  get('countdown').textContent = state === 'waiting' ? formatTime(timeLeft) : state === 'detecting' ? (detectionLeft / 1000).toFixed(1) + 's' : '';
+  get('progress').hidden = state !== 'waiting' && state !== 'detecting';
+  get('progressFill').style.width = (state === 'detecting' ? (1 - detectionLeft / detectionPeriod) * 100 : timeLeft / waitingPeriod * 100) + '%';
+  get('soundValue').textContent = soundLevel;
+  get('soundFill').style.width = soundLevel + '%';
+  get('soundFill').style.background = soundLevel >= threshold ? '#c38454' : '#719272';
+  get('marker').style.left = threshold + '%';
+  get('markerLabel').textContent = 'Alert at ' + threshold;
+  get('comparison').textContent = 'Sound ' + soundLevel + (soundLevel >= threshold ? ' meets' : ' is below') + ' the alert threshold of ' + threshold + '.';
+}
+
+// Events connect user actions to changes in the variables.
+get('powerButton').addEventListener('click', function () {
+  isOn = !isOn;
+  if (!isOn) lastAlertTime = null;
+  this.textContent = isOn ? '⏻ Turn off' : '⏻ Turn on';
+  this.setAttribute('aria-pressed', String(isOn));
+  get('camera').classList.toggle('off', !isOn);
+  get('cameraLabel').textContent = isOn ? '● MONITOR ON' : '● MONITOR OFF';
+  if (isOn) playRoomSound();
+  else updateAudio();
+  checkSound();
+});
+function changeSound(value) {
+  soundLevel = Number(value);
+  get('soundLevel').value = soundLevel;
+  playRoomSound();
+  checkSound();
+}
+get('soundLevel').addEventListener('input', function () { changeSound(this.value); });
+get('waitingPeriod').addEventListener('change', function () {
+  waitingPeriod = Number(this.value);
+  checkSound();
+});
+get('sensitivity').addEventListener('change', function () {
+  threshold = Number(this.value);
+  soundAboveSince = null; // Recheck from the start under the new sensitivity.
+  checkSound();
+});
+// A timer updates both the sound confirmation and repeat-alert pause.
+setInterval(checkSound, 250);
+checkSound();
+</script>
+</body>
+</html>
